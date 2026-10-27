@@ -4,10 +4,8 @@ import streamlit as st
 from langchain_core.prompts import PromptTemplate
 from langchain_groq import ChatGroq
 from langchain_classic.chains.summarize import load_summarize_chain
-from langchain_community.document_loaders import (
-    YoutubeLoader,
-    UnstructuredURLLoader
-)
+from langchain_community.document_loaders import YoutubeLoader
+from langchain_community.document_loaders import WebBaseLoader
 
 from dotenv import load_dotenv
 
@@ -100,9 +98,10 @@ if st.button("Summarize Content"):
 
                     st.info("Loading website content...")
 
-                    loader = UnstructuredURLLoader(
-                        urls=[generic_url],
-                        headers={
+                   
+                    loader = WebBaseLoader(
+                        web_paths=[generic_url],
+                        header_template={
                             "User-Agent": "Mozilla/5.0"
                         }
                     )
